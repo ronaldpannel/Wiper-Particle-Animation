@@ -100,7 +100,7 @@ class Effect {
     this.width = width;
     this.height = height;
     this.particles = [];
-    this.numParticles = 800;
+    this.numParticles = 400;
     this.blade = new Blade(this);
     this.maxDistance = 50;
 
