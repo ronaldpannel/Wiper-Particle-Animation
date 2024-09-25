@@ -15,19 +15,17 @@ class Blade {
   }
   draw(ctx) {
     ctx.lineWidth = 6;
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "grad1";
     ctx.beginPath();
     ctx.moveTo(this.w1.x, this.w1.y);
     ctx.lineTo(this.w2.x, this.w2.y);
     ctx.stroke();
     ctx.beginPath();
-    ctx.fillStyle = "yellow";
+    ctx.fillStyle = grad1;
     ctx.arc(this.bobX, this.bobY, this.bobRadius, 0, Math.PI * 2);
     ctx.fill();
   }
-  connectParticles(ctx){
-
-  }
+  connectParticles(ctx) {}
   update() {
     this.w1 = new Vector(this.effect.width / 2, this.effect.height);
     this.w2 = new Vector(
@@ -102,9 +100,9 @@ class Effect {
     this.width = width;
     this.height = height;
     this.particles = [];
-    this.numParticles = 500;
+    this.numParticles = 800;
     this.blade = new Blade(this);
-    this.maxDistance =  50
+    this.maxDistance = 50;
 
     for (let i = 0; i < this.numParticles; i++) {
       this.particles.push(new Particle(this));
@@ -113,7 +111,7 @@ class Effect {
       this.resize(e.target.innerWidth, e.target.innerHeight);
     });
   }
-  connectParticles(ctx){
+  connectParticles(ctx) {
     for (let i = 0; i < this.particles.length; i++) {
       for (let j = i; j < this.particles.length; j++) {
         let dx = this.particles[i].x - this.particles[j].x;
@@ -121,7 +119,7 @@ class Effect {
         let distance = Math.hypot(dx, dy);
         if (distance < this.maxDistance) {
           ctx.beginPath();
-          ctx.lineWidth = 1
+          ctx.lineWidth = 1;
           ctx.strokeStyle = grad;
           ctx.moveTo(this.particles[i].x, this.particles[i].y);
           ctx.lineTo(this.particles[j].x, this.particles[j].y);
@@ -136,12 +134,16 @@ class Effect {
     canvas.height = height;
     this.width = width;
     this.height = height;
-    this.blade.len = this.width / 3;
+    this.blade.len = width / 3;
     const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
     grad.addColorStop(0, "white");
     grad.addColorStop(0.5, "blue");
     grad.addColorStop(1, "orange");
-    
+
+    const grad1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    grad1.addColorStop(0, "white");
+    grad1.addColorStop(0.5, "blue");
+    grad1.addColorStop(1, "orange");
 
     this.particles.forEach((particle) => particle.reset());
   }
@@ -152,7 +154,7 @@ class Effect {
       particle.update();
       particle.collision();
     });
-    this.connectParticles(ctx)
+    this.connectParticles(ctx);
     this.blade.draw(ctx);
     this.blade.update();
   }

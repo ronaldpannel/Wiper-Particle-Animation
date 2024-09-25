@@ -9,6 +9,11 @@ grad.addColorStop(0, 'white')
 grad.addColorStop(0.5, 'blue')
 grad.addColorStop(1, 'orange')
 
+const grad1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+grad1.addColorStop(0, "white");
+grad1.addColorStop(0.5, "blue");
+grad1.addColorStop(1, "orange");
+
 const effect = new Effect(canvas.width, canvas.offsetHeight);
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
